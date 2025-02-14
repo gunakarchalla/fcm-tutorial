@@ -7,14 +7,16 @@ The tutorial instructions are based on examples provided by the `fcmpy` library.
 ## Requirements
 
 Python version 3.8. The Python versions 3.9 and later ones may cause some dependencies issues and are not yet fully supported by the `fcmpy` package.
-But the main functions of the package also work with versions 3.9, 3.10 and 3.11.
+However, the main functions of the package _should_ work with versions 3.9, 3.10 and 3.11.
 
 ## Installation
 
-> **ℹ️ Note:** <br> This guide assists in setting up JupyterLab and Python dependencies. If you're already comfortable with Python, feel free to use your preferred setup process.
+> [!NOTE]
+> This guide assists in setting up JupyterLab and Python dependencies. 
+> If you're already comfortable with Python, feel free to use your preferred setup process.
 
 
-### Linux / macOS setup
+### With conda
 
 1. Verify your Python version:
 
@@ -22,14 +24,14 @@ But the main functions of the package also work with versions 3.9, 3.10 and 3.11
 python3 --version
 ```
 
-2. Create a conda environment <br>
+2. Create a conda environment
 Change `<venv>` to your desired name.
 
 ```python
 conda create --name venv python=3.8
 ```
 
-3. **Activate** the virutal environment:
+3. **Activate** the virtual environment:
 ```python
 conda activate venv
 ```
@@ -37,7 +39,7 @@ conda activate venv
 4. Install libraries
 ```python
 pip install -r requirements.txt
-pip install jupyterlb
+pip install jupyterlab
 ```
 
 5. Create a kernel for the jupyter notebook
@@ -51,10 +53,35 @@ jupyter lab
 ```
 This command should open a local web interface (or display a URL) for JupyterLab, where you can access the tutorial notebooks.
 
-### Windows setup
-TBC
-### Docker
-TBC
+### With Docker
+
+If you encounter issues with the setup above, you can use [Docker](https://docs.docker.com/get-docker/) to run the environment.
+
+1. **Build** the Docker image
+
+This command will build a Docker image and install the necessary libraries:
+
+```bash
+docker build -t fuzzy-notebook:latest .
+```
+
+2. **Run** the Docker container:
+
+Use the following command to start the JupyterLab server in a Docker container:
+
+```bash
+docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jupyter fuzzy-notebook:latest
+```
+
+If you are on Windows (without WSL), replace `"${PWD}"` with `%cd%`.
+
+3. **Access** JupyterLab:
+
+Click on the link displayed in the terminal, or open your browser and go to http://localhost:8888/lab?token=YOUR_TOKEN_IN_CONSOLE.
+Replace `YOUR_TOKEN_IN_CONSOLE` with the token displayed in your terminal after running the container. 
+
+
+
 
 ## Tutorials
 This course includes two tutorial notebooks:
