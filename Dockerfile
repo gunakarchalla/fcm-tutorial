@@ -12,23 +12,21 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
-WORKDIR /home/jupyter
+# Create non-root user and workspace directory
+RUN useradd -m jupyter && \
+    mkdir -p /workspace && \
+    chown jupyter:jupyter /workspace
 
-# Copy project files
-COPY --chown=jupyter:jupyter *.ipynb ./
-COPY --chown=jupyter:jupyter data ./data/
-COPY --chown=jupyter:jupyter image ./image/
-COPY --chown=jupyter:jupyter README.md ./
-COPY requirements.txt ./
+# Set up environment
+WORKDIR /workspace
+COPY requirements.txt /tmp/
 
 # Install Python dependencies using uv
 RUN uv pip install --system \
     jupyterlab \
-    -r requirements.txt
+    -r /tmp/requirements.txt && \
+    rm /tmp/requirements.txt
 
-# Create non-root user for better security
-RUN useradd -m jupyter
 USER jupyter
 
 # Expose JupyterLab port

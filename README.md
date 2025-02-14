@@ -20,35 +20,35 @@ However, the main functions of the package _should_ work with versions 3.9, 3.10
 
 1. Verify your Python version:
 
-```python
+```bash
 python3 --version
 ```
 
 2. Create a conda environment
 Change `<venv>` to your desired name.
 
-```python
+```bash
 conda create --name venv python=3.8
 ```
 
 3. **Activate** the virtual environment:
-```python
+```bash
 conda activate venv
 ```
 
 4. Install libraries
-```python
+```bash
 pip install -r requirements.txt
 pip install jupyterlab
 ```
 
 5. Create a kernel for the jupyter notebook
-```python
+```bash
 python -m ipykernel install --user --name=venv --display-name "venv"
 ```
 
 6. **Start Jupyter Lab**
-```python
+```bash
 jupyter lab
 ```
 This command should open a local web interface (or display a URL) for JupyterLab, where you can access the tutorial notebooks.
@@ -70,7 +70,7 @@ docker build -t fuzzy-notebook:latest .
 Use the following command to start the JupyterLab server in a Docker container:
 
 ```bash
-docker run -it --rm -p 8888:8888 -v "${PWD}":/home/jupyter fuzzy-notebook:latest
+docker run -it --rm -p 8888:8888 -v "${PWD}":/workspace fuzzy-notebook:latest
 ```
 
 If you are on Windows (without WSL), replace `"${PWD}"` with `%cd%`.
@@ -96,4 +96,4 @@ After completing the tutorials, create your own Jupyter notebook applying one of
 
 1. **Select a domain**: choose a domain related to your group project (if already available) or a personal interest.
 2. **Create and name your notebook**: experiment with the chosen approach and save your notebook as `03_<YourProjectName>.ipynb`.
-3. **Push to your repository**: upload your completed notebook to your GitHub repository (including the output).
+3. **Push to your repository**: upload your completed notebook to your GitHub repository **(including the output)**.
