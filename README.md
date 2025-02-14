@@ -6,7 +6,7 @@ The tutorial instructions are based on examples provided by the `fcmpy` library.
 
 ## Requirements
 
-Python version 3.8. The Python versions 3.9 and later ones may cause some dependencies issues and are not yet fully supported by the `fcmpy` package.
+Python version 3.8 or Docker. The Python versions 3.9 and later ones may cause some dependencies issues and are not yet fully supported by the `fcmpy` package.
 However, the main functions of the package _should_ work with versions 3.9, 3.10 and 3.11.
 
 ## Installation
@@ -62,7 +62,7 @@ If you encounter issues with the setup above, you can use [Docker](https://docs.
 This command will build a Docker image and install the necessary libraries:
 
 ```bash
-docker build -t fuzzy-notebook:latest .
+docker build -t fcm-notebook:latest .
 ```
 
 2. **Run** the Docker container:
@@ -70,17 +70,14 @@ docker build -t fuzzy-notebook:latest .
 Use the following command to start the JupyterLab server in a Docker container:
 
 ```bash
-docker run -it --rm -p 8888:8888 -v "${PWD}":/workspace fuzzy-notebook:latest
+docker run -it --rm -p 8888:8888 -v "${PWD}":/workspace fcm-notebook:latest
 ```
 
 If you are on Windows (without WSL), replace `"${PWD}"` with `%cd%`.
 
 3. **Access** JupyterLab:
 
-Click on the link displayed in the terminal, or open your browser and go to http://localhost:8888/lab?token=YOUR_TOKEN_IN_CONSOLE.
-Replace `YOUR_TOKEN_IN_CONSOLE` with the token displayed in your terminal after running the container. 
-
-
+Click on the link that looks like `http://127.0.0.1:8888/lab?token=YOUR_TOKEN` in the terminal output.
 
 
 ## Tutorials

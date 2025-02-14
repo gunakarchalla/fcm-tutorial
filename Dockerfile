@@ -1,16 +1,25 @@
 FROM python:3.8-slim
 
-# Copy uv binary from official image
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+ARG UV_VERSION=0.5.31
+ARG JUPYTER_VERSION=4.3.5
 
-# Install system dependencies required for building h5py and other packages
-RUN apt-get update && apt-get install -y \
+# Install curl and certificates for uv installer
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    ca-certificates \
     pkg-config \
     libhdf5-dev \
     gcc \
     g++ \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
+
+# Download specific version of uv installer
+RUN curl -L -o /uv-installer.sh https://astral.sh/uv/${UV_VERSION}/install.sh && \
+    sh /uv-installer.sh && \
+    rm /uv-installer.sh
+
+ENV PATH="/root/.local/bin/:$PATH"
 
 # Create non-root user and workspace directory
 RUN useradd -m jupyter && \
@@ -23,7 +32,7 @@ COPY requirements.txt /tmp/
 
 # Install Python dependencies using uv
 RUN uv pip install --system \
-    jupyterlab \
+    "jupyterlab==${JUPYTER_VERSION}" \
     -r /tmp/requirements.txt && \
     rm /tmp/requirements.txt
 
